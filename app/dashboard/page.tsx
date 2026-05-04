@@ -4,96 +4,18 @@ import React, { useState, useEffect, useRef } from "react";
 import AppSidebar from "@/components/layout/AppSidebar";
 import AppHeader from "@/components/layout/AppHeader";
 import { getToken } from "@/lib/auth";
-
-const AttachmentIcon = () => (
-  <svg width="18" height="18" fill="none" stroke="#6b7280" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-    <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
-  </svg>
-);
-
-const MicIcon = () => (
-  <svg width="18" height="18" fill="none" stroke="#6b7280" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
-    <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
-    <line x1="12" y1="19" x2="12" y2="23" />
-    <line x1="8" y1="23" x2="16" y2="23" />
-  </svg>
-);
-
-const SendIcon = () => (
-  <svg width="16" height="16" fill="white" viewBox="0 0 24 24">
-    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-  </svg>
-);
-
-const BarChartIcon = () => (
-  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-    <line x1="18" y1="20" x2="18" y2="10" />
-    <line x1="12" y1="20" x2="12" y2="4" />
-    <line x1="6" y1="20" x2="6" y2="14" />
-  </svg>
-);
-
-const UsersIcon = () => (
-  <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-    <circle cx="9" cy="7" r="4" />
-    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-  </svg>
-);
-
-const AssistantStarsIcon = ({ size = 20 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-  </svg>
-);
-
-const ToolIcon = () => (
-  <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-    <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
-  </svg>
-);
-
-/* ─────────────────────────────────────────────────────────────────────────────
-   Types & Initial State
-───────────────────────────────────────────────────────────────────────────── */
-type Message = {
-  id: string;
-  role: "user" | "assistant";
-  content: string;
-  isWidget?: boolean;
-  tool_used?: string | null;
-  timeLabel?: string;
-};
-
-interface UserProfile {
-  id: string;
-  prenom: string;
-  nom: string;
-  email: string;
-  job: string;
-  phone: string;
-  location: string;
-  bio: string;
-  stats: {
-    projects: number;
-    tasks: number;
-    meetings: number;
-  };
-}
-
-interface Tool {
-  name: string;
-  description: string;
-  args_schema?: Record<string, unknown>;
-}
-
-interface HistoryMessage {
-  role: "user" | "assistant";
-  content: string;
-  timestamp: string;
-}
+import { UserProfile, Tool, Message, HistoryMessage } from "@/types";
+import { 
+  AttachmentIcon, 
+  MicIcon, 
+  SendIcon, 
+  BarChartIcon, 
+  UsersIcon, 
+  AssistantStarsIcon, 
+  ToolIcon,
+  DocumentsIcon,
+  PlusIcon
+} from "@/components/icons";
 
 const initialMessages: Message[] = [
   {
@@ -363,7 +285,7 @@ export default function DashboardChatPage() {
                                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
                                   <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                     <div style={{ width: "28px", height: "28px", backgroundColor: "#ea580c", borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "center", color: "#ffffff" }}>
-                                      <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /><polyline points="10 9 9 9 8 9" /></svg>
+                                      <DocumentsIcon />
                                     </div>
                                     <span style={{ fontSize: "13px", fontWeight: 700, color: "#7c2d12" }}>Documents</span>
                                   </div>
