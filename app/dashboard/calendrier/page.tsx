@@ -21,6 +21,8 @@ import {
   UsersIcon
 } from "@/components/icons";
 
+import { NEXT_PUBLIC_API_URL } from "@/env_varaible";
+
 export default function CalendarPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -36,7 +38,7 @@ export default function CalendarPage() {
       setTimeout(() => setLoading(false), 0);
       return;
     }
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+    const baseUrl = NEXT_PUBLIC_API_URL;
     fetch(`${baseUrl}/agenda`, {
       headers: { "Authorization": `Bearer ${token}` }
     })
@@ -67,7 +69,7 @@ export default function CalendarPage() {
     try {
       const token = getToken();
       if (!token) return;
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const baseUrl = NEXT_PUBLIC_API_URL;
 
       const method = modalMode === "create" ? "POST" : "PATCH";
       const url = modalMode === "create" ? `${baseUrl}/agenda` : `${baseUrl}/agenda/${selectedEvent.id}`;
@@ -103,7 +105,7 @@ export default function CalendarPage() {
     try {
       const token = getToken();
       if (!token) return;
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const baseUrl = NEXT_PUBLIC_API_URL;
       const response = await fetch(`${baseUrl}/agenda/${id}`, {
         method: "DELETE",
         headers: { "Authorization": `Bearer ${token}` }

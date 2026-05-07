@@ -20,6 +20,8 @@ import {
   UsersIcon
 } from "@/components/icons";
 
+import { NEXT_PUBLIC_API_URL } from "@/env_varaible";
+
 export default function ProfilePage() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
@@ -27,7 +29,7 @@ export default function ProfilePage() {
   const fetchUser = React.useCallback(async () => {
     try {
       const token = getToken();
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const baseUrl = NEXT_PUBLIC_API_URL;
       const response = await fetch(`${baseUrl}/user/me`, {
         headers: {
           "Authorization": `Bearer ${token}`

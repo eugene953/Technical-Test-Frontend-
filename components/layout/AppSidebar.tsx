@@ -17,6 +17,8 @@ import {
   LogoutIcon
 } from "@/components/icons";
 
+import { NEXT_PUBLIC_API_URL } from "@/env_varaible";
+
 interface AppSidebarProps {
   activeItem?: 'conversations' | 'profile' | 'dashboard' | 'calendar' | 'documents' | 'settings' | 'support';
 }
@@ -70,7 +72,7 @@ export default function AppSidebar({ activeItem = 'conversations' }: AppSidebarP
       try {
         const token = getToken();
         if (!token) return;
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+        const baseUrl = NEXT_PUBLIC_API_URL;
         const response = await fetch(`${baseUrl}/user/me`, {
           headers: { "Authorization": `Bearer ${token}` }
         });

@@ -17,6 +17,8 @@ import {
   PlusIcon
 } from "@/components/icons";
 
+import { NEXT_PUBLIC_API_URL } from "@/env_varaible";
+
 const initialMessages: Message[] = [
   {
     id: "1",
@@ -67,7 +69,7 @@ export default function DashboardChatPage() {
     try {
       const token = getToken();
       if (!token) return;
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+      const baseUrl = NEXT_PUBLIC_API_URL;
       const response = await fetch(`${baseUrl}/session/${id}/history`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
@@ -94,7 +96,7 @@ export default function DashboardChatPage() {
       try {
         const token = getToken();
         if (!token) return;
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+        const baseUrl = NEXT_PUBLIC_API_URL;
 
         const userRes = await fetch(`${baseUrl}/user/me`, {
           headers: { "Authorization": `Bearer ${token}` }
@@ -147,7 +149,7 @@ export default function DashboardChatPage() {
 
     try {
       const token = getToken();
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+      const baseUrl = NEXT_PUBLIC_API_URL;
 
       const response = await fetch(`${baseUrl}/agent/chat`, {
         method: "POST",

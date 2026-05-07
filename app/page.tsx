@@ -14,6 +14,8 @@ import {
   CheckIcon 
 } from "@/components/icons";
 
+import { NEXT_PUBLIC_API_URL } from "@/env_varaible";
+
 /* ─────────────────────────────────────────────────────────────────────────────
    Input Component
 ───────────────────────────────────────────────────────────────────────────── */
@@ -71,7 +73,7 @@ export default function HomePage() {
     setIsLoading(true);
     setError(null);
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+      const baseUrl = NEXT_PUBLIC_API_URL;
       const response = await fetch(`${baseUrl}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
